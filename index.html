@@ -1,0 +1,345 @@
+Here is the polished, mobile-first version of the POWERRANGO website. I've refined the layout for all screen sizes, improved touch interactions, added smooth micro-animations, and made the content more scannable on mobile devices. The design now feels even more professional, with a sticky WhatsApp button, better typography scaling, and a clean mobile menu experience.
+
+```html
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>POWERRANGO | Sustainable Palm Oil Excellence – Ghana</title>
+  <!-- Tailwind + Fonts -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600;6..72,700;6..72,800&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1" rel="stylesheet">
+  <style>
+    /* Custom animations & utilities */
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-up {
+      animation: fade-up 0.6s ease-out forwards;
+    }
+    .hover-lift {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .hover-lift:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px -12px rgba(0, 0, 0, 0.2);
+    }
+    .card-img-hover {
+      transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+    .group:hover .card-img-hover {
+      transform: scale(1.05);
+    }
+    .sticky-wa {
+      transition: all 0.2s;
+    }
+    .sticky-wa:hover {
+      transform: scale(1.08);
+    }
+    /* Improved mobile tap targets */
+    @media (max-width: 640px) {
+      a, button {
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+      }
+    }
+  </style>
+</head>
+<body class="bg-[#f9f9f8] text-[#191c1c] font-body selection:bg-[#ffe088] selection:text-[#574500] antialiased">
+
+  <!-- ========== NAVIGATION (fully responsive with smooth overlay) ========== -->
+  <nav class="fixed top-0 w-full z-50 bg-[#f9f9f8]/95 backdrop-blur-md shadow-sm border-b border-[#c1c8c2]/30 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center py-3 sm:py-4">
+        <!-- Logo + Brand -->
+        <div class="flex items-center gap-2 sm:gap-3">
+          <img class="h-9 sm:h-11 w-auto drop-shadow-sm" src="https://i.imgur.com/awldTV3.jpeg" alt="POWERRANGO logo - palm leaf emblem" loading="eager">
+          <span class="font-headline text-xl sm:text-2xl font-black text-[#012d1d] tracking-tighter">POWERRANGO</span>
+        </div>
+        
+        <!-- Desktop Navigation (hidden on mobile) -->
+        <div class="hidden md:flex items-center gap-6 lg:gap-8">
+          <a href="#" class="text-[#012d1d] font-semibold border-b-2 border-[#735c00] pb-1">Home</a>
+          <a href="#about" class="text-[#191c1c]/70 font-medium hover:text-[#012d1d] transition">About Us</a>
+          <a href="#services" class="text-[#191c1c]/70 font-medium hover:text-[#012d1d] transition">Services</a>
+          <a href="#community" class="text-[#191c1c]/70 font-medium hover:text-[#012d1d] transition">Sustainability</a>
+          <a href="#contact" class="text-[#191c1c]/70 font-medium hover:text-[#012d1d] transition">Contact</a>
+        </div>
+        
+        <!-- CTA + Mobile Toggle -->
+        <div class="flex items-center gap-3">
+          <a href="#contact" class="hidden sm:inline-block bg-[#012d1d] text-white px-5 py-2 rounded-sm font-semibold text-sm tracking-wide hover:bg-[#1b4332] transition shadow-md active:scale-95">Contact Us</a>
+          <button id="mobileMenuBtn" class="md:hidden text-[#012d1d] p-1 focus:outline-none" aria-label="Menu">
+            <span class="material-symbols-outlined text-3xl">menu</span>
+          </button>
+        </div>
+      </div>
+      <!-- Mobile menu panel with smooth transition -->
+      <div id="mobileMenuPanel" class="md:hidden hidden flex-col pb-5 space-y-3 bg-[#f9f9f8]/95 backdrop-blur-lg rounded-b-2xl border-t border-[#c1c8c2]/30 transition-all duration-300">
+        <a href="#" class="block py-2.5 text-[#012d1d] font-bold border-l-4 border-[#735c00] pl-5">Home</a>
+        <a href="#about" class="block py-2.5 text-[#191c1c]/80 hover:text-[#012d1d] pl-5 transition">About Us</a>
+        <a href="#services" class="block py-2.5 text-[#191c1c]/80 hover:text-[#012d1d] pl-5 transition">Services</a>
+        <a href="#community" class="block py-2.5 text-[#191c1c]/80 hover:text-[#012d1d] pl-5 transition">Sustainability</a>
+        <a href="#contact" class="block py-2.5 text-[#191c1c]/80 hover:text-[#012d1d] pl-5 transition">Contact</a>
+        <div class="pt-2 pl-5">
+          <a href="#contact" class="inline-block bg-[#012d1d] text-white px-6 py-2.5 rounded-sm font-semibold text-sm w-full text-center">Get in Touch</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========== HERO SECTION (optimized for all screens) ========== -->
+  <header class="relative h-screen min-h-[600px] md:min-h-[700px] flex items-center overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <img class="w-full h-full object-cover scale-105" src="https://i.imgur.com/FbwoA9l.jpeg" alt="Expansive palm oil plantation at Gomoa Manso, Ghana" loading="eager">
+      <div class="absolute inset-0 bg-gradient-to-r from-[#012d1d]/80 via-[#012d1d]/60 to-transparent"></div>
+    </div>
+    <div class="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 w-full">
+      <div class="max-w-xl lg:max-w-3xl animate-fade-up">
+        <span class="inline-block px-3 py-1 bg-[#e9c349] text-[#574500] text-[10px] sm:text-[11px] font-bold tracking-[0.2em] mb-4 sm:mb-6 rounded-full uppercase shadow-sm">EST. 2016 · GHANA</span>
+        <h1 class="font-headline text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-white font-extrabold leading-[1.05] sm:leading-[0.95] tracking-tighter mb-4 sm:mb-6 drop-shadow-2xl">
+          Sustainable Excellence<br>in Palm Oil.
+        </h1>
+        <p class="font-body text-lg sm:text-xl md:text-2xl text-white/95 font-light mb-6 sm:mb-10 tracking-wide max-w-xl">WE WORK THE LAND, WE FEED THE NATION.</p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#services" class="bg-[#e9c349] text-[#574500] px-6 sm:px-8 py-3 sm:py-4 rounded-sm font-bold text-xs sm:text-sm tracking-wider hover:bg-[#fed65b] transition-all flex items-center gap-2 shadow-lg">
+            EXPLORE OUR SOLUTIONS <span class="material-symbols-outlined text-base sm:text-lg">arrow_forward</span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="absolute bottom-6 sm:bottom-12 left-5 sm:left-8 flex flex-col gap-2 z-10">
+      <div class="w-8 sm:w-10 h-[1px] bg-white/50"></div>
+      <span class="text-white/70 text-[9px] sm:text-[10px] tracking-[0.2em] font-medium">ROOTED IN HERITAGE</span>
+    </div>
+  </header>
+
+  <!-- ========== ABOUT SECTION ========== -->
+  <section id="about" class="py-16 sm:py-20 md:py-28 lg:py-32 bg-[#f9f9f8]">
+    <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-2 gap-10 lg:gap-16 items-center">
+        <div class="order-2 md:order-1">
+          <span class="text-[#735c00] font-bold tracking-[0.2em] text-[10px] uppercase mb-2 block">Our story</span>
+          <h2 class="font-headline text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-[#012d1d] font-bold leading-tight mb-5">Nurturing the Soil,<br>Empowering Generations</h2>
+          <div class="space-y-4 text-[#414844] font-body leading-relaxed text-sm sm:text-base md:text-lg">
+            <p>Founded in 2016 in the fertile heart of Gomoa Manso, Central Region, <span class="font-bold text-[#012d1d]">POWERRANGO</span> has grown into Ghana’s benchmark for ethical, high-yield palm oil production. We combine ancestral wisdom with modern agronomy to deliver premium palm oil that respects both people and planet.</p>
+            <p>Our mission is to deliver exceptional palm products while preserving biodiversity, ensuring deforestation-free supply chains, and uplifting local farmers through fair wages and knowledge transfer. Every drop reflects our promise: quality, integrity, and regeneration.</p>
+            <div class="bg-[#f3f4f3] p-4 sm:p-5 rounded-lg border-l-4 border-[#e9c349] italic font-medium text-[#012d1d]/80 text-sm sm:text-base">
+              “Sustainability isn’t a trend — it’s the only way we cultivate tomorrow.”
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-6 sm:gap-8 pt-6 mt-4 border-t border-[#c1c8c2]/30">
+            <div><span class="block font-headline text-3xl sm:text-4xl text-[#735c00] font-bold">100%</span><span class="text-[10px] sm:text-xs uppercase tracking-wider font-bold text-[#191c1c]/50">Traceable Supply</span></div>
+            <div><span class="block font-headline text-3xl sm:text-4xl text-[#735c00] font-bold">RSPO+</span><span class="text-[10px] sm:text-xs uppercase tracking-wider font-bold text-[#191c1c]/50">Certified Aligned</span></div>
+          </div>
+        </div>
+        <div class="order-1 md:order-2">
+          <div class="relative p-2 sm:p-3 bg-white shadow-2xl rounded-2xl">
+            <img class="w-full aspect-[4/5] object-cover rounded-xl" src="https://i.imgur.com/9tpnTKs.jpeg" alt="POWERRANGO team and local farmers – community driven palm oil production">
+            <div class="absolute -bottom-5 -left-4 sm:-bottom-6 sm:-left-6 bg-[#012d1d] p-4 sm:p-5 text-white max-w-[220px] sm:max-w-[260px] hidden sm:block rounded-xl shadow-xl">
+              <p class="font-headline text-base sm:text-lg leading-snug font-semibold">“Best palm nut farm in Gomoa Manso — committed to fair labor and pure quality.”</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SERVICES SECTION ========== -->
+  <section id="services" class="py-16 sm:py-20 md:py-28 lg:py-32 bg-[#f3f4f3]">
+    <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-12 sm:mb-16 gap-4">
+        <div>
+          <span class="text-[#735c00] font-bold tracking-[0.2em] text-[10px] uppercase mb-2 block">What we deliver</span>
+          <h2 class="font-headline text-3xl sm:text-4xl md:text-5xl text-[#012d1d] font-bold max-w-2xl">The Best Palm Nut Farm in Gomoa Manso</h2>
+        </div>
+        <div class="pb-1">
+          <span class="px-4 py-2 bg-[#ffe088] text-[#574500] rounded-full text-xs font-bold tracking-tight flex items-center gap-1 shadow-sm">
+            <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">verified</span> Certified Premium Quality
+          </span>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
+        <!-- Card 1 -->
+        <div class="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover-lift">
+          <div class="overflow-hidden h-64 sm:h-72">
+            <img class="w-full h-full object-cover card-img-hover" src="https://i.imgur.com/zd5WalE.jpeg" alt="Premium palm oil extraction process">
+          </div>
+          <div class="p-5 sm:p-6">
+            <h3 class="font-headline text-xl sm:text-2xl text-[#012d1d] font-bold mb-2">Premium Palm Oil Production</h3>
+            <p class="text-[#414844] text-sm leading-relaxed">Cold-pressed and meticulously filtered, our palm oil retains natural antioxidants and vibrant color. Ideal for food industries and export-grade standards.</p>
+          </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover-lift">
+          <div class="overflow-hidden h-64 sm:h-72">
+            <img class="w-full h-full object-cover card-img-hover" src="https://i.imgur.com/2k9v1Ld.jpeg" alt="Ripe palm fruit bunches harvested manually">
+          </div>
+          <div class="p-5 sm:p-6">
+            <h3 class="font-headline text-xl sm:text-2xl text-[#012d1d] font-bold mb-2">Sustainable Harvesting</h3>
+            <p class="text-[#414844] text-sm leading-relaxed">Low-impact manual harvesting preserves soil fertility and tree longevity. Each bunch is selected at optimal ripeness for maximum oil yield.</p>
+          </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover-lift">
+          <div class="overflow-hidden h-64 sm:h-72">
+            <img class="w-full h-full object-cover card-img-hover" src="https://i.imgur.com/WkeY07v.jpeg" alt="Modern processing facility with energy-efficient machinery">
+          </div>
+          <div class="p-5 sm:p-6">
+            <h3 class="font-headline text-xl sm:text-2xl text-[#012d1d] font-bold mb-2">High-Tech Processing</h3>
+            <p class="text-[#414844] text-sm leading-relaxed">Energy-smart machinery ensures rapid processing, preserving freshness from field to final product while reducing carbon footprint.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== COMMUNITY & SUSTAINABILITY ========== -->
+  <section id="community" class="relative py-20 sm:py-28 lg:py-32 bg-[#012d1d] text-white overflow-hidden">
+    <div class="absolute inset-0 opacity-20 md:opacity-30">
+      <img class="w-full h-full object-cover" src="https://i.imgur.com/FbwoA9l.jpeg" alt="palm plantation background">
+    </div>
+    <div class="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
+      <div class="max-w-3xl">
+        <h2 class="font-headline text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-[1.2]">The Heart of the Land</h2>
+        <p class="text-base sm:text-lg md:text-xl text-[#c1ecd4] font-light mb-10">POWERRANGO is more than an estate — it’s a thriving ecosystem of farmers, families, and forward-thinking agriculture. We empower local growers through ethical partnerships and training programs.</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-10">
+          <div class="flex items-start gap-4">
+            <span class="material-symbols-outlined text-[#e9c349] text-3xl sm:text-4xl">diversity_3</span>
+            <div><h4 class="font-bold text-lg mb-1">Fair Labor Practices</h4><p class="text-white/80 text-sm">Living wages, safe conditions, and full transparency for every worker across our supply chain.</p></div>
+          </div>
+          <div class="flex items-start gap-4">
+            <span class="material-symbols-outlined text-[#e9c349] text-3xl sm:text-4xl">school</span>
+            <div><h4 class="font-bold text-lg mb-1">Local Growth Hub</h4><p class="text-white/80 text-sm">Training smallholder farmers in regenerative agriculture, boosting yields without deforestation.</p></div>
+          </div>
+          <div class="flex items-start gap-4">
+            <span class="material-symbols-outlined text-[#e9c349] text-3xl sm:text-4xl">forest</span>
+            <div><h4 class="font-bold text-lg mb-1">Biodiversity First</h4><p class="text-white/80 text-sm">Wildlife corridors and riparian buffers protect Ghana’s natural heritage.</p></div>
+          </div>
+          <div class="flex items-start gap-4">
+            <span class="material-symbols-outlined text-[#e9c349] text-3xl sm:text-4xl">handshake</span>
+            <div><h4 class="font-bold text-lg mb-1">Farmer Prosperity</h4><p class="text-white/80 text-sm">Profit-sharing initiatives and access to modern tools for community resilience.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CONTACT STRIP (mobile-optimized) ========== -->
+  <section id="contact" class="bg-[#e9c349] py-10 sm:py-12 md:py-16">
+    <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8">
+      <div class="flex items-center gap-4 w-full md:w-auto justify-start">
+        <div class="bg-[#012d1d] text-white p-3 rounded-xl shadow-md"><span class="material-symbols-outlined text-2xl sm:text-3xl">location_on</span></div>
+        <div><p class="text-[#574500] font-bold text-sm sm:text-base uppercase tracking-tight">Visit Us</p><p class="text-[#574500] font-medium text-sm">Gomoa Manso, Central Region, Ghana</p></div>
+      </div>
+      <div class="hidden md:block h-10 w-px bg-[#574500]/30"></div>
+      <div class="flex items-center gap-4 w-full md:w-auto justify-start">
+        <div class="bg-[#012d1d] text-white p-3 rounded-xl shadow-md"><span class="material-symbols-outlined text-2xl sm:text-3xl">call</span></div>
+        <div>
+          <p class="text-[#574500] font-bold text-sm sm:text-base uppercase tracking-tight">WhatsApp / Call</p>
+          <a href="tel:+233534222631" class="text-[#012d1d] font-black text-xl sm:text-2xl hover:underline">053 422 2631</a>
+        </div>
+      </div>
+      <a href="https://wa.me/233534222631?text=Hello%20POWERRANGO%2C%20I'm%20interested%20in%20your%20palm%20oil%20products" target="_blank" rel="noopener noreferrer" class="bg-[#012d1d] text-white px-6 sm:px-8 py-3 sm:py-4 rounded-sm font-bold text-xs sm:text-sm tracking-[0.1em] hover:bg-[#1b4332] transition-all shadow-md flex items-center gap-2 whitespace-nowrap">
+        BOOK A VISIT <span class="material-symbols-outlined text-base">calendar_month</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ========== CERTIFICATIONS BANNER ========== -->
+  <div class="bg-[#e1e3e2] py-5 sm:py-6 border-y border-[#c1c8c2]/40">
+    <div class="max-w-7xl mx-auto px-5 sm:px-6 flex flex-wrap justify-center gap-4 sm:gap-6 text-xs sm:text-sm font-medium">
+      <span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[#735c00] text-base">verified</span> RSPO Standard</span>
+      <span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[#735c00] text-base">eco</span> Global G.A.P.</span>
+      <span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[#735c00] text-base">agriculture</span> Organic Practices</span>
+      <span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[#735c00] text-base">trophy</span> Best Palm Nut Farm '24</span>
+    </div>
+  </div>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="bg-[#012d1d] text-[#e9c349]">
+    <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+        <div>
+          <span class="font-headline text-2xl sm:text-3xl font-bold text-white block mb-4">POWERRANGO</span>
+          <p class="text-white/60 text-sm leading-relaxed">Driving the future of sustainable palm oil through innovation, ethical farming, and community prosperity.</p>
+        </div>
+        <div>
+          <h4 class="text-white font-bold mb-4 uppercase tracking-wider text-xs">Explore</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#about" class="text-white/60 hover:text-white transition">About</a></li>
+            <li><a href="#services" class="text-white/60 hover:text-white transition">Our Services</a></li>
+            <li><a href="#community" class="text-white/60 hover:text-white transition">Sustainability</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white font-bold mb-4 uppercase tracking-wider text-xs">Our Reach</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="tel:+233534222631" class="text-[#e9c349] font-bold hover:text-white">📞 053 422 2631</a></li>
+            <li class="text-white/60">Gomoa Manso, Central Region</li>
+            <li class="text-white/60">Ghana, West Africa</li>
+            <li class="text-white/60 flex items-center gap-1"><span class="material-symbols-outlined text-sm">schedule</span> Mon-Fri: 8am – 5pm</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white font-bold mb-4 uppercase tracking-wider text-xs">Certifications</h4>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-white/10 px-3 py-1.5 text-[10px] font-bold text-white rounded-full">RSPO</span>
+            <span class="bg-white/10 px-3 py-1.5 text-[10px] font-bold text-white rounded-full">GLOBAL GAP</span>
+            <span class="bg-white/10 px-3 py-1.5 text-[10px] font-bold text-white rounded-full">ORGANIC</span>
+            <span class="bg-white/10 px-3 py-1.5 text-[10px] font-bold text-white rounded-full">GHANA STANDARD</span>
+          </div>
+          <div class="mt-5"><p class="text-white/40 text-[9px] uppercase tracking-wider">#PowerRango #SustainablePalmOil</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="border-t border-white/10 py-5">
+      <div class="max-w-7xl mx-auto px-5 sm:px-6 flex flex-col sm:flex-row justify-between items-center gap-3 text-white/40 text-[9px] sm:text-[10px] font-medium tracking-wider">
+        <span>© 2025 POWERRANGO — Rooted in Excellence. All rights reserved.</span>
+        <div class="flex gap-5">
+          <a href="#" class="hover:text-white transition">Privacy Policy</a>
+          <a href="#" class="hover:text-white transition">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Sticky WhatsApp Button (mobile friendly) -->
+  <a href="https://wa.me/233534222631?text=Hello%20POWERRANGO%2C%20I'm%20interested%20in%20your%20palm%20oil%20products" target="_blank" rel="noopener noreferrer" class="fixed bottom-5 right-5 z-40 bg-green-600 text-white p-3 rounded-full shadow-xl hover:bg-green-700 transition-all sticky-wa flex items-center justify-center">
+    <span class="material-symbols-outlined text-2xl">whatsapp</span>
+  </a>
+
+  <!-- Mobile menu + smooth scroll offset -->
+  <script>
+    (function() {
+      const menuBtn = document.getElementById('mobileMenuBtn');
+      const panel = document.getElementById('mobileMenuPanel');
+      if (menuBtn && panel) {
+        menuBtn.addEventListener('click', () => panel.classList.toggle('hidden'));
+        panel.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => panel.classList.add('hidden'));
+        });
+      }
+      // Smooth scroll with offset for fixed header
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          const targetId = this.getAttribute('href');
+          if (targetId === "#" || targetId === "") return;
+          const target = document.querySelector(targetId);
+          if (target) {
+            e.preventDefault();
+            const offset = 80;
+            const elementPosition = target.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - offset;
+            window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
+```
